@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SIPWISE - SIP Propensity Dashboard</title>
+
+    <!-- Connect HTML to CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">S</div>
+            <span>SIPWISE</span>
+        </div>
+
+        <nav class="navigation">
+
+            <!-- Dashboard -->
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Customers -->
+            <a href="#customersSection" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Customers</span>
+            </a>
+
+            <!-- Analytics -->
+            <a href="#analyticsSection" class="nav-item">
+                <span class="nav-icon">◫</span>
+                <span>Analytics</span>
+            </a>
+
+            <!-- Settings -->
+            <a href="#settingsSection" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+<button id="darkModeBtn" class="dark-mode-btn">
+    <span class="nav-icon">🌙</span>
+    <span>Dark Mode</span>
+</button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>Analytics Platform</p>
+            <span>v1.0 Prototype</span>
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+         
+         IMPORTANT:
+         All dashboard sections are INSIDE main.
+         This prevents them from going underneath
+         the sidebar.
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =====================================
+             TOP HEADER
+        ====================================== -->
+
+        <header class="top-header">
+
+            <div class="page-heading">
+
+                <h1>SIP Propensity Dashboard</h1>
+
+                <p>
+                    Identify and prioritize customers most likely to start an SIP.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button
+                    class="notification-button"
+                    title="Notifications">
+
+                    🔔
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        ST
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>Sales Team</strong>
+
+                        <span>
+                            Relationship Manager
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             OVERVIEW CARDS
+        ====================================== -->
+
+        <section class="overview-grid">
+
+            <!-- Total Customers -->
+
+            <div class="overview-card">
+
+                <div class="card-top">
+
+                    <span class="card-title">
+                        Total Customers
+                    </span>
+
+                    <div class="card-icon blue">
+                        👥
+                    </div>
+
+                </div>
+
+                <h2 id="totalCustomers">
+                    0
+                </h2>
+
+                <p class="card-description">
+                    Customers analyzed
+                </p>
+
+            </div>
+
+
+            <!-- High Propensity -->
+
+            <div class="overview-card">
+
+                <div class="card-top">
+
+                    <span class="card-title">
+                        High Propensity
+                    </span>
+
+                    <div class="card-icon green">
+                        ↗
+                    </div>
+
+                </div>
+
+                <h2 id="highCustomers">
+                    0
+                </h2>
+
+                <p class="card-description">
+                    Priority customers
+                </p>
+
+            </div>
+
+
+            <!-- Medium Propensity -->
+
+            <div class="overview-card">
+
+                <div class="card-top">
+
+                    <span class="card-title">
+                        Medium Propensity
+                    </span>
+
+                    <div class="card-icon orange">
+                        ◐
+                    </div>
+
+                </div>
+
+                <h2 id="mediumCustomers">
+                    0
+                </h2>
+
+                <p class="card-description">
+                    Potential customers
+                </p>
+
+            </div>
+
+
+            <!-- Low Propensity -->
+
+            <div class="overview-card">
+
+                <div class="card-top">
+
+                    <span class="card-title">
+                        Low Propensity
+                    </span>
+
+                    <div class="card-icon red">
+                        ↓
+                    </div>
+
+                </div>
+
+                <h2 id="lowCustomers">
+                    0
+                </h2>
+
+                <p class="card-description">
+                    Low priority customers
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PROPENSITY OVERVIEW
+        ====================================== -->
+
+        <section class="content-card propensity-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Propensity Overview
+                    </h2>
+
+                    <p>
+                        Distribution of customers based on SIP propensity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="propensity-bars">
+
+
+                <!-- HIGH -->
+
+                <div class="propensity-row">
+
+                    <div class="propensity-label">
+
+                        <span>
+
+                            <span class="status-dot high-dot"></span>
+
+                            High
+
+                        </span>
+
+                        <strong id="highPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-background">
+
+                        <div
+                            id="highProgress"
+                            class="progress-bar high-progress">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MEDIUM -->
+
+                <div class="propensity-row">
+
+                    <div class="propensity-label">
+
+                        <span>
+
+                            <span class="status-dot medium-dot"></span>
+
+                            Medium
+
+                        </span>
+
+                        <strong id="mediumPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-background">
+
+                        <div
+                            id="mediumProgress"
+                            class="progress-bar medium-progress">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LOW -->
+
+                <div class="propensity-row">
+
+                    <div class="propensity-label">
+
+                        <span>
+
+                            <span class="status-dot low-dot"></span>
+
+                            Low
+
+                        </span>
+
+                        <strong id="lowPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-background">
+
+                        <div
+                            id="lowProgress"
+                            class="progress-bar low-progress">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             CUSTOMER SECTION
+        ====================================== -->
+
+        <section
+            id="customersSection"
+            class="content-card customers-section">
+
+
+            <div class="section-heading table-heading">
+
+                <div>
+
+                    <h2>
+                        High Priority Customers
+                    </h2>
+
+                    <p>
+                        Review customer propensity and recommended next actions.
+                    </p>
+
+                </div>
+
+
+                <div class="table-controls">
+
+
+                    <!-- Search -->
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search Customer ID...">
+
+                    </div>
+
+
+                    <!-- Filter -->
+
+                    <select id="segmentFilter">
+
+                        <option value="All">
+                            All
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Customer Table -->
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer ID
+                            </th>
+
+                            <th>
+                                Age
+                            </th>
+
+                            <th>
+                                Monthly Salary
+                            </th>
+
+                            <th>
+                                Average Balance
+                            </th>
+
+                            <th>
+                                Balance Consistency
+                            </th>
+
+                            <th>
+                                SIP Propensity
+                            </th>
+
+                            <th>
+                                Segment
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <!-- JavaScript creates rows here -->
+
+                    <tbody id="customerTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- No results message -->
+
+            <div
+                id="noResults"
+                class="no-results">
+
+                No customers found.
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             ANALYTICS SECTION
+
+             IMPORTANT:
+             This is INSIDE main-content.
+             Therefore it will not go behind
+             the sidebar.
+        ====================================== -->
+
+        <section
+            id="analyticsSection"
+            class="content-card analytics-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Analytics
+                    </h2>
+
+                    <p>
+                        Overview of SIP propensity across customers.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="analytics-grid">
+
+
+                <!-- Average SIP Propensity -->
+
+                <div class="analytics-box">
+
+                    <span>
+                        Average SIP Propensity
+                    </span>
+
+                    <strong id="averagePropensity">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <!-- High Rate -->
+
+                <div class="analytics-box">
+
+                    <span>
+                        High Propensity Rate
+                    </span>
+
+                    <strong id="highRate">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <!-- Medium Rate -->
+
+                <div class="analytics-box">
+
+                    <span>
+                        Medium Propensity Rate
+                    </span>
+
+                    <strong id="mediumRate">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <!-- Low Rate -->
+
+                <div class="analytics-box">
+
+                    <span>
+                        Low Propensity Rate
+                    </span>
+
+                    <strong id="lowRate">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             SETTINGS SECTION
+        ====================================== -->
+
+        <section
+            id="settingsSection"
+            class="content-card settings-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Settings
+                    </h2>
+
+                    <p>
+                        Dashboard and prototype configuration.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-content">
+
+                <div class="setting-item">
+
+                    <div>
+
+                        <strong>
+                            Data Source
+                        </strong>
+
+                        <p>
+                            Currently using mock customer data.
+                        </p>
+
+                    </div>
+
+                    <span class="setting-status">
+                        Mock Data
+                    </span>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div>
+
+                        <strong>
+                            ML Model
+                        </strong>
+
+                        <p>
+                            SIP propensity model is not connected yet.
+                        </p>
+
+                    </div>
+
+                    <span class="setting-status">
+                        Prototype
+                    </span>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div>
+
+                        <strong>
+                            Backend
+                        </strong>
+
+                        <p>
+                            Spring Boot API will be connected later.
+                        </p>
+
+                    </div>
+
+                    <span class="setting-status">
+                        Pending
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         CUSTOMER DETAILS MODAL
+
+         This is outside main intentionally.
+         It is a popup overlay, not page content.
+    ========================================== -->
+
+    <div
+        id="customerModal"
+        class="modal">
+
+
+        <div class="modal-content">
+
+
+            <!-- Close button -->
+
+            <button
+                id="closeModal"
+                class="close-button">
+
+                ×
+
+            </button>
+
+
+
+            <!-- Modal Header -->
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-label">
+                        Customer Details
+                    </span>
+
+                    <h2 id="modalCustomerId">
+                        Customer C1024
+                    </h2>
+
+                </div>
+
+
+                <span
+                    id="modalSegment"
+                    class="badge high">
+
+                    HIGH
+
+                </span>
+
+            </div>
+
+
+
+            <!-- Customer Details -->
+
+            <div class="customer-details-grid">
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Age
+                    </span>
+
+                    <strong id="modalAge">
+                        28
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Monthly Salary
+                    </span>
+
+                    <strong id="modalSalary">
+                        ₹60,000
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Average Balance
+                    </span>
+
+                    <strong id="modalBalance">
+                        ₹25,000
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Balance Consistency
+                    </span>
+
+                    <strong id="modalConsistency">
+                        86%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Propensity Score -->
+
+            <div class="propensity-score-box">
+
+                <div>
+
+                    <span>
+                        SIP Propensity Score
+                    </span>
+
+                    <strong id="modalPropensity">
+                        87%
+                    </strong>
+
+                </div>
+
+
+                <div class="score-bar-background">
+
+                    <div
+                        id="modalScoreBar"
+                        class="score-bar">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Customer Explanation -->
+
+            <div class="insight-box">
+
+                <span class="insight-title">
+                    Why this customer?
+                </span>
+
+                <p id="modalExplanation">
+
+                    Customer shows stable salary credits,
+                    healthy average balance and high
+                    balance consistency.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Next Best Action -->
+
+            <div class="action-box">
+
+                <span class="action-label">
+                    Recommended Next Action
+                </span>
+
+                <strong id="modalAction">
+
+                    Prioritize customer for SIP invitation.
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         CONNECT HTML TO JAVASCRIPT
+    ========================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
